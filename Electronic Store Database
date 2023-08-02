@@ -1,0 +1,14 @@
+--Create a store database
+CREATE TABLE Lav_Electronics (id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, brand TEXT, price integer);
+
+INSERT INTO Lav_Electronics VALUES (1, "keyboard", 5, "High Ground", 100);
+INSERT INTO Lav_Electronics VALUES (2, "mouse", 5, "Finalmouse", 189);
+INSERT INTO Lav_Electronics VALUES (3, "Power Supply", 5, "Corsair", 300);
+
+--Display the database and order by price.
+SELECT * from Lav_Electronics
+ORDER BY price;
+
+--What is the most expensive item in the store?
+SELECT name, MAX(price) 
+from Lav_Electronics;
