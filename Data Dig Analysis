@@ -1,3 +1,4 @@
+--Create a Database
 CREATE TABLE pokemon(
   Number     INTEGER,
   Name       TEXT PRIMARY KEY,
@@ -192,18 +193,21 @@ INSERT INTO pokemon(Number,Name,Type_1,Type_2,Total,HP,Attack,Defense,Sp_Atk,Sp_
 INSERT INTO pokemon(Number,Name,Type_1,Type_2,Total,HP,Attack,Defense,Sp_Atk,Sp_Def,Speed,Generation,Legendary) VALUES (162,'Furret','Normal',NULL,415,85,76,64,45,55,90,2,'False');
 INSERT INTO pokemon(Number,Name,Type_1,Type_2,Total,HP,Attack,Defense,Sp_Atk,Sp_Def,Speed,Generation,Legendary) VALUES (163,'Hoothoot','Normal','Flying',262,60,30,30,36,56,50,2,'False');
 
-
+--Display the database and use average, max or min values. Limit to 20 entries.
 SELECT * FROM pokemon LIMIT 20;
 SELECT AVG(HP), AVG(Attack), AVG(Defense), AVG(Speed) FROM pokemon;
 
+-- Display 20 entries with MAX function and utilize the GROUP BY function.
 SELECT Name, MAX(HP) FROM pokemon;
 SELECT Name, Type_1 FROM pokemon GROUP BY Type_1 LIMIT 20;
 
+--Filter data utilizing the AND function.
 SELECT Name, HP FROM pokemon WHERE Type_1 = "Fire" AND Type_2 = "Dragon";
 
+--Utilize the HAVING function to select grouped values.
 SELECT Name, Total AS Strongest FROM pokemon GROUP BY Total HAVING Strongest > 600 LIMIT 20;
 
-
+--Utilize CASE function to determine which tier the Pokemon's speed should be placed.
 SELECT COUNT (*),
     CASE 
         WHEN Speed > 130 THEN "TIER 0"
