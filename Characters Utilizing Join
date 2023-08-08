@@ -1,0 +1,38 @@
+CREATE TABLE lightbringer (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT,
+    age INTEGER);
+    
+INSERT INTO lightbringer (fullname, age) VALUES ("Andross Guile", 65);
+INSERT INTO lightbringer (fullname, age) VALUES ("Felia Guile", 52);
+INSERT INTO lightbringer (fullname, age) VALUES ("Dazen Guile", 28);
+INSERT INTO lightbringer (fullname, age) VALUES ("Gavin Guile", 30);
+INSERT INTO lightbringer (fullname, age) VALUES ("Kip Guile", 18);
+
+CREATE table power (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    power_id INTEGER,
+    relationship TEXT,
+    color TEXT);
+    
+INSERT INTO power (power_id, relationship, color) VALUES (1, "Father of Gavin/Dazen", "Red");
+INSERT INTO power (power_id, relationship, color) VALUES (2, "Mother of Gavin/Dazen", "Orange");
+INSERT INTO power (power_id, relationship, color) VALUES (3, "Youngest son of Andross/Felia,", "Balck Prism");
+INSERT INTO power (power_id, relationship, color) VALUES (4, "Eldest Son of Andross/Felia", "The Prism");
+INSERT INTO power (power_id, relationship, color) VALUES (5, "Son of Gavin", "Superchromat");
+
+CREATE table family_tree (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person1_id INTEGER,
+    person2_id INTEGER);
+
+INSERT INTO family_tree (person1_id, person2_id)
+    VALUES (1, 2);
+INSERT INTO family_tree (person1_id, person2_id)
+    VALUES (3, 4);
+
+-- Utilizing the JOIN query to combine two tables and showcase their output.
+SELECT l.fullname, l.age, p.relationship, p.color
+    FROM lightbringer AS l
+    JOIN power as p
+    ON l.id = p.power_id;
