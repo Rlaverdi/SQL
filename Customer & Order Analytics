@@ -46,3 +46,13 @@ SELECT count(distinct cust.acctnum), avg(quantity*price)
   WHERE Feb.Quantity>2
   AND length(orderid) = 6 
   AND orderid <> 'Order ID'
+
+#8. List all the products sold in Los Angeles in February, and include how many of each were sold.
+SELECT Product, SUM(quantity)
+    FROM BIT_DB.FebSales
+    WHERE location like '%Los Angeles%'
+    GROUP BY Product;
+#9. List all orders made in February between 02/13/19 and 02/18/19
+SELECT orderdate
+    FROM BIT_DB.FebSales
+    WHERE orderdate between '02/13/19 00:00' AND '02/18/19 00:00';
