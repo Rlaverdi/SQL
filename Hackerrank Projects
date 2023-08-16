@@ -4,9 +4,31 @@ SELECT * FROM CITY
   AND COUNTRYCODE = 'USA'
   ORDER BY POPULATION;
 
---Query the NAME field for all American cities in the CITY table with populations larger than 120000. 
-SELECT NAME FROM CITY
-    WHERE POPULATION > 120000
-    AND COUNTRYCODE = 'USA'
-    GROUP BY NAME;
+--Query a list of CITY names from STATION for cities that have an even ID number. Print the results in any order, but exclude duplicates from the answer
+SELECT DISTINCT CITY
+    FROM STATION 
+    WHERE ID % 2 = 0
+    GROUP BY CITY;
 
+--Query the two cities in STATION with the shortest and longest CITY names, as well as their respective lengths (i.e.: number of characters in the name). 
+--If there is more than one smallest or largest city, choose the one that comes first when ordered alphabetically.
+SELECT CITY, length(CITY)
+FROM STATION
+ORDER BY length(CITY) ASC, CITY LIMIT 1;
+
+SELECT CITY, length(CITY)
+FROM STATION
+ORDER BY length(CITY) DESC, CITY LIMIT 1;
+
+--Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.
+SELECT DISTINCT(CITY) from STATION
+WHERE CITY REGEXP '[aeiou]$';
+
+--Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION
+WHERE CITY REGEXP '^[aeiou]' and CITY REGEXP '[aeiou]$'
+
+--Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY NOT REGEXP '^[aeiou]'
