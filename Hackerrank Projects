@@ -1,14 +1,14 @@
 --Query all columns for all American cities in the CITY table with populations larger than 100000
 SELECT * FROM CITY
-  WHERE POPULATION > 100000
-  AND COUNTRYCODE = 'USA'
-  ORDER BY POPULATION;
+WHERE POPULATION > 100000
+AND COUNTRYCODE = 'USA'
+ORDER BY POPULATION;
 
 --Query a list of CITY names from STATION for cities that have an even ID number. Print the results in any order, but exclude duplicates from the answer
 SELECT DISTINCT CITY
-    FROM STATION 
-    WHERE ID % 2 = 0
-    GROUP BY CITY;
+FROM STATION 
+WHERE ID % 2 = 0
+GROUP BY CITY;
 
 --Query the two cities in STATION with the shortest and longest CITY names, as well as their respective lengths (i.e.: number of characters in the name). 
 --If there is more than one smallest or largest city, choose the one that comes first when ordered alphabetically.
@@ -26,9 +26,35 @@ WHERE CITY REGEXP '[aeiou]$';
 
 --Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.
 SELECT DISTINCT CITY FROM STATION
-WHERE CITY REGEXP '^[aeiou]' and CITY REGEXP '[aeiou]$'
+WHERE CITY REGEXP '^[aeiou]' and CITY REGEXP '[aeiou]$';
 
 --Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.
 SELECT DISTINCT CITY
 FROM STATION
-WHERE CITY NOT REGEXP '^[aeiou]'
+WHERE CITY NOT REGEXP '^[aeiou]';
+
+--Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings.
+SELECT salary * months AS Max_Earnings, COUNT(*)
+FROM Employee
+GROUP BY salary * months
+ORDER BY salary * months DESC LIMIT 1;
+
+-- Query the Western Longitude (LONG_W)where the smallest Northern Latitude (LAT_N) in STATION is greater than 38.7880. Round your answer to 4 decimal places.
+SELECT ROUND(LONG_W,4)
+FROM STATION
+WHERE LAT_N > 38.7880
+ORDER BY LAT_N ASC LIMIT 1;
+
+--Query the Manhattan Distance between points P1 and P2 and round it to a scale of 4 decimal places.
+SELECT ROUND(ABS(MAX(LAT_N) - MIN(LAT_N)) + ABS(MAX(LONG_W) - MIN(LONG_W)) , 4)
+FROM STATION;
+
+--Query the Euclidean Distance between points P1 and P2 and format your answer to display 4 decimal digits.
+SELECT ROUND(SQRT(POWER(MAX(LAT_N) - MIN(LAT_N),2) + POWER(MAX(LONG_W) - MIN(LONG_W),2)) , 4)
+FROM STATION;
+
+--Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
+SELECT SUM(a.POPULATION)
+FROM CITY a, COUNTRY b
+WHERE a.COUNTRYCODE = b.CODE
+AND b.CONTINENT = 'ASIA';
