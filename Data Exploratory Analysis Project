@@ -1,0 +1,88 @@
+#US_Household_Income_Exploratory_Analysis
+
+SELECT *
+FROM us_project.us_household_income
+;
+
+
+SELECT *
+FROM us_project.us_household_income_statistics
+;
+
+
+#Exploring Sates with the largest Land
+SELECT State_Name, SUM(ALand), SUM(AWater)
+FROM us_project.us_household_income
+GROUP BY State_Name
+ORDER BY 2 DESC
+LIMIT 10
+;
+
+#Exploring Sates with the largest Water
+SELECT State_Name, SUM(ALand), SUM(AWater)
+FROM us_project.us_household_income
+GROUP BY State_Name
+ORDER BY 3 DESC
+LIMIT 10
+;
+
+#Exploring AVG mean and median household incomes based on type ordering by AVG Mean
+SELECT u.State_Name, ROUND(AVG(Mean),1), ROUND(AVG(Median),1)
+FROM us_project.us_household_income u
+	INNER JOIN us_project.us_household_income_statistics us
+	ON u.id = us.id
+    WHERE Mean <> 0
+    GROUP BY u.State_Name
+    ORDER BY 3 DESC
+    LIMIT 5
+;
+
+
+#Exploring Type, AVG mean and median household incomes based on type ordering by AVG Mean
+SELECT Type, COUNT(Type), ROUND(AVG(Mean),1), ROUND(AVG(Median),1)
+FROM us_project.us_household_income u
+	INNER JOIN us_project.us_household_income_statistics us
+	ON u.id = us.id
+    WHERE Mean <> 0
+    GROUP BY Type
+    ORDER BY 3 DESC
+    LIMIT 10
+;
+
+#Exploring Type, AVG mean and median household incomes based on type ordering by AVG Median
+SELECT Type, COUNT(Type), ROUND(AVG(Mean),1), ROUND(AVG(Median),1)
+FROM us_project.us_household_income u
+	INNER JOIN us_project.us_household_income_statistics us
+	ON u.id = us.id
+    WHERE Mean <> 0
+    GROUP BY Type
+    ORDER BY 4 DESC
+    LIMIT 10
+;
+
+
+SELECT * 
+FROM us_project.us_household_income
+WHERE Type = 'Community'
+;
+
+#Exploring Type, AVG mean and median household incomes based on type greater than 100
+SELECT Type, COUNT(Type), ROUND(AVG(Mean),1), ROUND(AVG(Median),1)
+FROM us_project.us_household_income u
+	INNER JOIN us_project.us_household_income_statistics us
+	ON u.id = us.id
+    WHERE Mean <> 0
+    GROUP BY Type
+    HAVING COUNT(Type) > 100
+    ORDER BY 4 DESC
+    LIMIT 10
+;
+
+#Exploring AVG Mean and median household incomes based on State and City
+SELECT u.State_Name, City, ROUND(AVG(Mean),1), ROUND(AVG(Median),1)
+FROM us_project.us_household_income u
+	INNER JOIN us_project.us_household_income_statistics us
+	ON u.id = us.id
+    GROUP BY u.State_Name, City
+    ORDER BY ROUND(AVG(Mean),1) DESC
+;
